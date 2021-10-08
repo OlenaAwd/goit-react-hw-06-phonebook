@@ -1,5 +1,4 @@
-export default {
-  ADD_CONTACT: 'contacts/AddContact',
-  REMOVE_CONTACT: 'contacts/RemoveContact',
-  FILTER_CONTACT: 'contacts/FilterContacts',
-};
+ 
+export const ADD_CONTACT = 'contacts/AddContact';
+export const REMOVE_CONTACT = 'contacts/RemoveContact';
+export const FILTER_CONTACT = 'contacts/FilterContacts';

@@ -1,16 +1,19 @@
 import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contacts/contacts-actions';
+import { getContacts } from '../../redux/contacts/contacts-selectors';
 import css from './ContactForm.module.css';
-import uuid from '../../../node_modules/uuid/dist/v4';
+import { toast } from 'react-hot-toast';
 
-export default function ContactForm({ onSubmit }) {
+
+function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  const contactNameId = () => uuid();
-  const contactNumberId = () => uuid();
+  const dispatch = useDispatch();
+  const contacts = useSelector(getContacts);
 
   const handleChange = e => {
-    const { name, value } = e.currentTarget;
+    const { name, value } = e.target;
     switch (name) {
       case 'name':
         setName(value);
@@ -23,9 +26,25 @@ export default function ContactForm({ onSubmit }) {
     }
   };
 
+  const checkForAddedName = name => {
+    return contacts.find(
+      contact => contact.name.toLowerCase() === name.toLowerCase(),
+    );
+  };
+
+  const checkForAddedNumber = number => {
+    return contacts.find(contact => contact.number === number);
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit(name, number);
+    if (checkForAddedName(name)) {
+      toast(`${name} is already in your phonebook`);
+    } else if (checkForAddedNumber(number)) {
+      toast(`${number} is already in your phonebook`);
+    } else {
+      dispatch(addContact(name, number));
+    }
     reset();
   };
 
@@ -36,7 +55,7 @@ export default function ContactForm({ onSubmit }) {
 
   return (
     <form className={css.form} onSubmit={handleSubmit}>
-      <label className={css.label} htmlFor={contactNameId}>
+      <label className={css.label}>
         Name
         <input
           className={css.input}
@@ -44,18 +63,18 @@ export default function ContactForm({ onSubmit }) {
           name="name"
           value={name}
           onChange={handleChange}
-          id={contactNameId}
+          placeholder="Enter contact's name"
         />
       </label>
-      <label className={css.label} htmlFor={contactNumberId}>
+      <label className={css.label}>
         Number
         <input
           className={css.input}
-          type="text"
+          type="tel"
           name="number"
           value={number}
           onChange={handleChange}
-          id={contactNumberId}
+          placeholder="111-111-11-11"
         />
       </label>
 
@@ -65,3 +84,5 @@ export default function ContactForm({ onSubmit }) {
     </form>
   );
 }
+
+export default ContactForm;
