@@ -1,22 +1,26 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { filterContact } from '../../redux/contacts/contacts-actions';
+import { changeFilter } from '../../redux/contacts/contacts-actions';
 import {getFilter} from '../../redux/contacts/contacts-selectors';
 import css from './FilterForm.module.css';
 
-const Filter = () => {
+export default function Filter() {
   const dispatch = useDispatch();
-  const filter = useSelector(getFilter);
-  // const contacts = useSelector(getContacts);
+  const value = useSelector(getFilter);
 
-  <label className={css.filterLabel}>
-    Find contacts by name
-    <input
-      className={css.filterInput}
-      type="text"
-      value={filter}
-      onChange={e => dispatch(filterContact(e.target.value))}
-    />
-  </label>
-};
+  const onChange = e => dispatch(changeFilter(e.target.value));
+ 
+  return (
+    <label className={css.filterLabel}>
+      Find contacts by name
+      <input
+        className={css.filterInput}
+        type="text"
+        value={value}
+        onChange={onChange}
+        placeholder="Enter contact's name"
+      />
+    </label>
+  );
+}
 
-export default Filter;
+

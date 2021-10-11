@@ -1,20 +1,10 @@
-form {
-  display: flex;
-  flex-direction: column;
-}
+.container {
+  max-width: 500px;
 
-.label {
-  margin: 10px;
-}
-
-.text {
-  margin-right: 10px;
-}
-
-.input {
-  border-radius: 5px;
-}
-.button {
-  border-radius: 5px;
-  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding: 40px;
+  /* background-color: var(--bgColor);
+  box-shadow: var(--boxShadow); */
 }

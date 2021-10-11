@@ -1,20 +1,42 @@
 .form {
-  display: flex;
-  flex-direction: column;
+  box-sizing: border-box;
+  border: 5px ridge #66c2ff;
+  width: 420px;
+  padding: 20px;
+  background-color: #e6faff;
 }
 
 .label {
   margin: 10px;
 }
 
-.text {
-  margin-right: 10px;
+.inputName {
+  border-radius: 5px;
+  margin-left: 22px;
+  margin-bottom: 10px;
+  width: 265px;
 }
 
-.input {
+.inputNumber{
   border-radius: 5px;
+  margin-left: 7px;
+  width: 265px;
+  margin-bottom: 10px;
 }
 .button {
-  border-radius: 5px;
-  width: 150px;
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2px 10px 3px 10px;
+  border-radius: 9px;
+  font-size: 14px;
+  background-color: #ffffff;
 }
+
+.button:hover{
+  cursor: pointer;
+  background-color: #b3f0ff;
+}
+
+

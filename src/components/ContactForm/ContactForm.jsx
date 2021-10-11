@@ -1,80 +1,93 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from '../../redux/contacts/contacts-actions';
 import { getContacts } from '../../redux/contacts/contacts-selectors';
 import css from './ContactForm.module.css';
 import { toast } from 'react-hot-toast';
+import shortid from 'shortid';
 
 
-function ContactForm() {
+export default function ContactForm() {
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+
+  const nameId = useRef(shortid.generate());
+  const numberId = useRef(shortid.generate());
 
   const handleChange = e => {
-    const { name, value } = e.target;
-    switch (name) {
+    switch (e.target.name) {
       case 'name':
-        setName(value);
+        setName(e.target.value);
         break;
+
       case 'number':
-        setNumber(value);
+        setNumber(e.target.value);
         break;
+
       default:
         return;
     }
   };
 
-  const checkForAddedName = name => {
-    return contacts.find(
-      contact => contact.name.toLowerCase() === name.toLowerCase(),
-    );
-  };
-
-  const checkForAddedNumber = number => {
-    return contacts.find(contact => contact.number === number);
-  };
-
   const handleSubmit = e => {
     e.preventDefault();
-    if (checkForAddedName(name)) {
-      toast(`${name} is already in your phonebook`);
-    } else if (checkForAddedNumber(number)) {
-      toast(`${number} is already in your phonebook`);
-    } else {
-      dispatch(addContact(name, number));
-    }
-    reset();
-  };
 
-  const reset = () => {
+    if (contacts.find(con => con.name.toLowerCase() === name.toLowerCase())) {
+      toast(`'${name}' is alresdy in contacts`, {
+        icon: '📞',
+        style: {
+          borderRadius: '10px',
+          background: '#666',
+          color: '#fff',
+        },
+      });
+      return;
+    }
+
+    if (contacts.find(con => con.number === number)) {
+      toast(`'${number}' is alresdy in contacts`, {
+        icon: '📞',
+        style: {
+          borderRadius: '10px',
+          background: '#666',
+          color: '#fff',
+        },
+      });
+      return;
+    }
+
+    dispatch(addContact({ name, number }));
     setName('');
     setNumber('');
   };
-
-  return (
+  
+ 
+return (
+    <>
     <form className={css.form} onSubmit={handleSubmit}>
-      <label className={css.label}>
+      <label className={css.label} htmlFor={nameId.current}>
         Name
         <input
-          className={css.input}
+          className={css.inputName}
           type="text"
           name="name"
           value={name}
           onChange={handleChange}
-          placeholder="Enter contact's name"
+          placeholder=" John Smith"
         />
       </label>
-      <label className={css.label}>
+      <label className={css.label} htmlFor={numberId.current}>
         Number
         <input
-          className={css.input}
+          className={css.inputNumber}
           type="tel"
           name="number"
           value={number}
           onChange={handleChange}
-          placeholder="111-111-11-11"
+          placeholder=" 111-11-11"
         />
       </label>
 
@@ -82,7 +95,7 @@ function ContactForm() {
         Add contact
       </button>
     </form>
+    </>
   );
 }
 
-export default ContactForm;
