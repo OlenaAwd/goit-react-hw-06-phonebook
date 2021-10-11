@@ -1,13 +1,6 @@
 .form {
   box-sizing: border-box;
-  border: 5px ridge #66c2ff;
-  width: 420px;
   padding: 20px;
-  background-color: #e6faff;
-}
-
-.label {
-  margin: 10px;
 }
 
 .inputName {
@@ -15,13 +8,19 @@
   margin-left: 22px;
   margin-bottom: 10px;
   width: 265px;
+  font-size: 14px;
 }
 
-.inputNumber{
+.label {
+  display: block;
+}
+
+.inputNumber {
   border-radius: 5px;
   margin-left: 7px;
   width: 265px;
   margin-bottom: 10px;
+  font-size: 14px;
 }
 .button {
   display: block;
@@ -34,9 +33,7 @@
   background-color: #ffffff;
 }
 
-.button:hover{
+.button:hover {
   cursor: pointer;
   background-color: #b3f0ff;
 }
-
-

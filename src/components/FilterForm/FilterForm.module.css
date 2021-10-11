@@ -1,20 +1,18 @@
-.filterLabel{
+.filterLabel {
   margin-top: 10px;
   font-weight: 500;
   font-size: 18px;
   padding-right: 10px;
 }
 
-.filterInput{
+.filterInput {
+  margin-left: 5px;
   margin-top: 10px;
-  padding: 10px;
-  width:220px;
-  border: 1px solid rgba(33, 33, 33, 0.2);
-  border-radius: 4px;
-  cursor: pointer;
+  padding: 5px;
+  width: 220px;
+  border-radius: 5px;
   font-size: 14px;
 }
 .filterInput:focus {
   cursor: pointer;
-  background-color: #b3f0ff;
 }

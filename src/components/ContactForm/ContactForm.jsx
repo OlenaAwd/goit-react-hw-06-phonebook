@@ -6,7 +6,6 @@ import css from './ContactForm.module.css';
 import { toast } from 'react-hot-toast';
 import shortid from 'shortid';
 
-
 export default function ContactForm() {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
@@ -48,14 +47,7 @@ export default function ContactForm() {
     }
 
     if (contacts.find(con => con.number === number)) {
-      toast(`'${number}' is alresdy in contacts`, {
-        icon: '📞',
-        style: {
-          borderRadius: '10px',
-          background: '#666',
-          color: '#fff',
-        },
-      });
+      toast(`'${number}' is alresdy in contacts`);
       return;
     }
 
@@ -63,39 +55,37 @@ export default function ContactForm() {
     setName('');
     setNumber('');
   };
-  
- 
-return (
-    <>
-    <form className={css.form} onSubmit={handleSubmit}>
-      <label className={css.label} htmlFor={nameId.current}>
-        Name
-        <input
-          className={css.inputName}
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleChange}
-          placeholder=" John Smith"
-        />
-      </label>
-      <label className={css.label} htmlFor={numberId.current}>
-        Number
-        <input
-          className={css.inputNumber}
-          type="tel"
-          name="number"
-          value={number}
-          onChange={handleChange}
-          placeholder=" 111-11-11"
-        />
-      </label>
 
-      <button className={css.button} type="submit">
-        Add contact
-      </button>
-    </form>
+  return (
+    <>
+      <form className={css.form} onSubmit={handleSubmit}>
+        <label className={css.label} htmlFor={nameId.current}>
+          Name
+          <input
+            className={css.inputName}
+            type="text"
+            name="name"
+            value={name}
+            onChange={handleChange}
+            placeholder=" John Smith"
+          />
+        </label>
+        <label className={css.label} htmlFor={numberId.current}>
+          Number
+          <input
+            className={css.inputNumber}
+            type="tel"
+            name="number"
+            value={number}
+            onChange={handleChange}
+            placeholder=" 111-11-11"
+          />
+        </label>
+
+        <button className={css.button} type="submit">
+          Add contact
+        </button>
+      </form>
     </>
   );
 }
-
